@@ -504,7 +504,7 @@ impl<ChannelSigner: EcdsaChannelSigner> OnchainTxHandler<ChannelSigner> {
 				.map(|(_, new_feerate, claim)| {
 					let mut bumped_feerate = false;
 					if let Some(mut_request) = self.pending_claim_requests.get_mut(&claim_id) {
-						bumped_feerate = request.previous_feerate() > new_feerate;
+						bumped_feerate = new_feerate > request.previous_feerate();
 						mut_request.set_feerate(new_feerate);
 					}
 					match claim {
